@@ -25,3 +25,45 @@ extension Stack: ExpressibleByArrayLiteral{
         storage = elements
     }
 }
+
+
+
+
+//-------------------------- Queue -----------------
+
+
+public struct Queue<Element>{
+    private var enqueueStack: Stack <Element> = []
+    private var dequeueStack: Stack <Element> = []
+
+    private var storage: [Element] = []
+    public mutating func enqueue(_ element: Element){
+        enqueueStack.push(element)
+    }
+    public mutating func dequeue()-> Element?{
+        if dequeueStack.isEmpty{
+            while !enqueueStack.isEmpty {
+                dequeueStack.push(enqueueStack.pop()!)
+            }
+        }
+      return dequeueStack.pop()
+    }
+    public func peak()-> Element?{
+        dequeueStack.isEmpty ? enqueueStack.peak() : dequeueStack.peak()
+    }
+    
+    var isEmpty: Bool {
+        enqueueStack.isEmpty && dequeueStack.isEmpty
+    }
+}
+
+var q = Queue<Int>()
+
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+
+while !q.isEmpty {
+    print(q.dequeue())
+}
+

@@ -2,6 +2,7 @@
 <playground version='6.0' target-platform='ios' buildActiveScheme='true'>
     <pages>
         <page name='Linked List'/>
-        <page name='Stacks'/>
+        <page name='Stacks &amp; Queues'/>
+        <page name='Trees'/>
     </pages>
 </playground>

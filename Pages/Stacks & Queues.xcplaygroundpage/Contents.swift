@@ -66,4 +66,7 @@ q.enqueue(3)
 while !q.isEmpty {
     print(q.dequeue())
 }
+q.enqueue(4)
+print(q.dequeue())
+
 

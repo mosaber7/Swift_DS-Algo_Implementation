@@ -4,5 +4,8 @@
         <page name='Linked List'/>
         <page name='Stacks &amp; Queues'/>
         <page name='Trees'/>
+        <page name='Tries'/>
+        <page name='soln'/>
+        <page name='Heaps'/>
     </pages>
 </playground>

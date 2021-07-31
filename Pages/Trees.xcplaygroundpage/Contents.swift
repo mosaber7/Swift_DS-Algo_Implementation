@@ -16,7 +16,7 @@ public class BinaryTreeNode<T>{
     
 }
 
-public struct BinarySearchTreeNode<T: Comparable>{
+public struct BinarySearchTree<T: Comparable>{
     private(set) var root: BinaryTreeNode<T>?
     
     public mutating func insert(_ val: T){
@@ -76,6 +76,25 @@ public struct BinarySearchTreeNode<T: Comparable>{
             node.rightChild = remove(node.rightChild, val)
         }
         return node
+    }
+    
+    public func height(_ root: BinaryTreeNode<T>?)->Int{
+        CalculateHeight(root)
+    }
+    private func CalculateHeight(_ root: BinaryTreeNode<T>?)->Int{
+        if root == nil {return 0}
+        if root?.rightChild == nil && root?.leftChild == nil{
+            return 0
+        }
+        if root?.rightChild == nil && root?.leftChild != nil{
+            return 1 + CalculateHeight(root?.leftChild)
+        }
+        if root?.rightChild != nil && root?.leftChild == nil{
+            return 1 + CalculateHeight(root?.rightChild)
+    }
+        else{
+            return 1 + max(CalculateHeight(root?.rightChild), CalculateHeight(root?.leftChild))
+        }
     }
     
 }

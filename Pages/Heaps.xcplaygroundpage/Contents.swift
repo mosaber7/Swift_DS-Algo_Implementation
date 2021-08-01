@@ -93,5 +93,4 @@ public struct Heap<Element: Equatable>{
         }
         return nil
     }
-    
 }

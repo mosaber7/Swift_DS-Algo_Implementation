@@ -60,18 +60,18 @@ public class Trie<collectiontype: Collection> where collectiontype.Element: Hash
         }
         return (result, curr)
     }
-
-
+    
+    
 }
 
 func suggestedProducts(_ products: [String], _ searchWord: String) -> [[String]] {
-        var trie = Trie<String>()
+    var trie = Trie<String>()
     for product in products {
         trie.insert(product)
     }
     print(trie)
     return []
-    }
+}
 suggestedProducts(["mo", "saber", "mohamed", "mom"], "m")
 
 
@@ -90,6 +90,104 @@ private func binarySerch(_ arr: [Int], target: Int, _ low: Int, _ high: Int)->Bo
     }else {
         return binarySerch(arr, target: target, low, middileIndex)
     }
-return false
 }
 contains([1,2,3,4,5], target: 5)
+
+
+
+
+public struct Heap<Element: Equatable>{
+    private var elements: [Element] = []
+    var sort:  (Element, Element)-> Bool
+    init(sort: @escaping (Element, Element)-> Bool) {
+        self.sort = sort
+    }
+    var count: Int {
+        return elements.count
+    }
+    
+    public func rightChildIndex(of parentIndex: Int)-> Int{
+        2*parentIndex + 2
+    }
+    public func leftChildIndex(of parentIndex: Int)-> Int{
+        2*parentIndex + 1
+    }
+    public func parentindex(of childIndex: Int)-> Int{
+        (childIndex - 1) / 2
+    }
+    public func peak()-> Element?{
+        elements.first
+    }
+    
+    public mutating func insert(_ element: Element){
+        elements.append(element)
+        siftUp(from: elements.count - 1)
+    }
+    private mutating func siftDown(from index: Int){
+        var parent = index
+        while true {
+            let right = rightChildIndex(of: parent)
+            let left = leftChildIndex(of: parent)
+            var candidate = parent
+            if left < count && right < count {
+            if sort(elements[left], elements[parent]) && sort(elements[left], elements[right]) {
+                candidate = left
+            }
+            if  sort(elements[right], elements[parent]) && !sort(elements[left], elements[right]) {
+                
+                candidate = right
+                
+            }
+            }
+            
+            
+            if candidate == parent {return}
+            elements.swapAt(parent, candidate)
+            parent = candidate
+        }
+    }
+    private mutating func siftUp(from index: Int){
+       var child = index
+        var parent = parentindex(of: child)
+        while child > 0 && sort(elements[child], elements[parent]){
+            elements.swapAt(child, parent)
+            child = parent
+            parent = parentindex(of: child)
+        }
+    }
+    public mutating func remove() -> Element? {
+        guard !elements.isEmpty else {
+        return nil
+          }
+          elements.swapAt(0, count - 1)
+          defer {
+            siftDown(from: 0) // 4
+          }
+          return elements.removeLast()
+    }
+}
+func lastStoneWeight(_ stones: [Int]) -> Int {
+    var heap = Heap<Int>(sort: >)
+    
+    for stone in stones{
+        heap.insert(stone)
+    }
+    var outputHeap = getlastStoneWeight(heap)
+    return outputHeap.remove() ?? 0
+}
+private func getlastStoneWeight(_ heap: Heap<Int>) -> Heap<Int>{
+    var currHeap = heap
+    while currHeap.count > 1 {
+        
+        let max1 = currHeap.remove()!
+        let max2 = currHeap.remove()!
+       
+        if max1 == max2 {continue}
+       
+        currHeap.insert(max1-max2)
+        
+    }
+    
+    return currHeap
+}
+print(lastStoneWeight([9,3,2,10]))

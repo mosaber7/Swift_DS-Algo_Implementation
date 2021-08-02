@@ -7,5 +7,6 @@
         <page name='Tries'/>
         <page name='soln'/>
         <page name='Heaps'/>
+        <page name='Sorting Algorithms'/>
     </pages>
 </playground>

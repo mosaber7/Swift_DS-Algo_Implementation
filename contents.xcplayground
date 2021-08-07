@@ -8,5 +8,6 @@
         <page name='soln'/>
         <page name='Heaps'/>
         <page name='Sorting Algorithms'/>
+        <page name='Graphs'/>
     </pages>
 </playground>
